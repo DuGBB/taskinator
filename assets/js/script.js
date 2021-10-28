@@ -61,6 +61,7 @@ var taskFormHandler = function(event) {
 
   tasks.push(taskDataObj);
 
+saveTasks();
 
   taskIdCounter++;
 };
@@ -119,6 +120,8 @@ console.log('in completeEditTask:  ' + taskName, taskType, taskId);
    }
  };
 
+ saveTasks();
+
  alert("Task Updated!");
 
  formEl.removeAttribute("data-task-id");
@@ -169,6 +172,8 @@ var deleteTask = function(taskId) {
     }
   }
   tasks = updatedTaskArr;
+
+  saveTasks();
 };
 
 //pageContentEl.addEventListener("change", taskStatusChangeHandler)
@@ -201,7 +206,12 @@ var taskStatusChangeHandler = function(event) {
       }
       console.log(tasks);
     }
+    saveTasks();
   };
+
+  var saveTasks = function() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
 
 pageContentEl.addEventListener("click", taskButtonHandler);
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
