@@ -33,6 +33,7 @@ var taskFormHandler = function (event) {
 
     createTaskEl(taskDataObj);
   }
+
 };
 
 var createTaskEl = function (taskDataObj) {
@@ -222,28 +223,23 @@ var saveTasks = function () {
 //2. Converts tasks from the string format back into an array of objects.
 //3. Iterates through a tasks array and creates task elements on the page from it.
 var loadTasks = function () {
-  console.log("FU");
-  tasks = localStorage.getItem("tasks");
-  //console.log('FU TOO');
+  var savedTasks = localStorage.getItem("tasks");
   console.log(tasks);
-  if (!tasks) {
+
+  if (!savedTasks) {
     tasks = [];
     return false;
   }
-  console.log(tasks);
-  tasks = JSON.parse(tasks);
-  for (var i = 0; i < tasks.length; i++) {
-    console.log(tasks[i]);
-    tasks[i].id = taskIdCounter;
-    console.log(tasks[i]);
+  
+  savedTasks = JSON.parse(savedTasks);
 
-    var listItemEl = document.createElement("li");
-    listItemEl.className = "task-item";
-
-    listItemEl.setAttribute("data-task-id", tasks[i].id);
-    console.log(listItemEl);
+  for (var i = 0; i < savedTasks.length; i++) {
+    // pass each task object into the `createTaskEl()` function
+    createTaskEl(savedTasks[i]);
   }
+
 };
+
 loadTasks();
 
 pageContentEl.addEventListener("click", taskButtonHandler);
